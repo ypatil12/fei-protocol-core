@@ -51,7 +51,7 @@ interface IPCVDepositAggregator {
         uint256 newWeight
     );
 
-    // ----------- Public Functions ----------
+    // ----------- Public Functions -----------
 
     /// @notice tops up a deposit from the aggregator's balance
     /// @param pcvDeposit the address of the pcv deposit to top up
