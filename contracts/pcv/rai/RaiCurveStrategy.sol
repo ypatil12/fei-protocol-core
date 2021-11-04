@@ -44,15 +44,9 @@ contract RaiCurveStrategy is PCVDeposit {
     /// @notice The collateral type of the RAI SAFE
     bytes32 public constant collateralType = "eth";
 
-    // TODO: remove min and max ratio threshold & update how value is expressed
-    /// @notice the min and max ratios for FEI-to-value in pool (these can be set by governance)
-    /// @notice this ratio is expressed as a percentile with 18 decimal precision, ie 0.1e18 = 10%
-    // uint256 public minimumRatioThreshold;
-    // uint256 public maximumRatioThreshold;
     /// @notice The Target Collaterlaization Ratio for the safe
-    /// @notice This value is expressed as a wad/ray
+    /// @notice This value is expressed as ...
     uint256 public targetCollateralizationRatio;
-
 
     // ------------------ Private properties -----------------------------------
 
@@ -95,9 +89,8 @@ contract RaiCurveStrategy is PCVDeposit {
         _rai = IStableSwap2(pool).coins(_raiIndexTmp);
 
         // open SAFE and Join (see vulnerability)
+        //TODO: join
         safeId = GebSafeManager(safeManager).openSAFE(collateralType, address(this));
-        
-
     }
 
     // ------------------ Governance Methods -----------------------------------
@@ -116,24 +109,13 @@ contract RaiCurveStrategy is PCVDeposit {
         targetCollateralizationRatio = _targetCollateralizationRatio;
     }
 
-    function openSafe() public onlyGovernorOrAdmin {
-        safeId = GebSafeManager(safeManager).openSAFE(collateralType, address(this));
-    }
-
     function updateSaviourKeeperInventive(uint256 payoutValue) public onlyGovernorOrAdmin {
         CurveV1MaxSafeSaviour(saviour).updateParameter(minKeeperPayoutValue, payoutValue);
     }
 
-
-
-
-
-
-
-
     // ------------------ Methods ----------------------------------------------
 
-    function _unwindSafe() internal{
+    function _unwindSafe() internal {
 
     }
     
